@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_general_ledger_param" model="ir.ui.view">
+        <field name="name">General Ledger</field>
+        <field name="model">account.report.general.ledger</field>
+        <field name="inherit_id" ref="skit_account_reports.account_report_general_ledger_view"/>
+        <field name="arch" type="xml">
+        <data>
+        <xpath expr="//field[@name='company_id']" position="after">
+         <field name="filter_analytic_account_ids" widget="many2many_tags" options="{'no_create': True}"/>
+        </xpath>
+        </data>
+        </field>
+    </record>  
+       <template id="report_generalledger_1" inherit_id="skit_account_reports.report_generalledger">
+         
+          <xpath expr="//div[@class='row mt32']" position="after">
+          <div class="row oe_mt8 mb32">
+            <div class="col-4" groups="analytic.group_analytic_accounting">
+                        <strong>Analytic Account:</strong>
+                         <p t-esc="', '.join([ lt or '' for lt in print_analytic ])"/>
+             </div>
+             </div>
+          </xpath>
+      </template>
+</odoo>
+
